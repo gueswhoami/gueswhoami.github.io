@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Gueswhoaimi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+        text-align: center;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+        color: #22223b;
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        color: #c1121f;
+        margin-top: 40px;
+        letter-spacing: 3px;
+        font-size: 2.8em;
+        text-shadow: 1px 1px 5px #fcd5ce;
+      }
+      .subtitle {
+        font-size: 1.4em;
+        color: #495057;
+        margin-bottom: 10px;
+      }
+      .date {
+        color: #3a5a40;
+        font-weight: bold;
+        margin: 8px 0 16px 0;
+        font-size: 1.1em;
+      }
+      .highlight {
+        color: #0077b6;
+        font-weight: bold;
+      }
+      hr {
+        width: 60%;
+        margin: 32px auto;
+        border: 1px solid #adb5bd;
+      }
+      .footer {
+        margin-top: 40px;
+        color: #adb5bd;
+        font-size: 0.95em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>WELCOME TO MY SITE</h1>
+    <div class="subtitle">A place to share my journey and aspirations</div>
+    <div class="date">
+      Today is: <span id="today"></span>
+    </div>
+    <p>
+      <span class="highlight">Today marks the beginning of a new chapter in my life.</span>
+      I'm excited to embrace new challenges, set fresh goals, and grow every day. 
+    </p>
+    <hr>
+    <p>
+      I believe every step I take from now on will truly matter. 
+      <br>
+      <em>It's not just about the destination, but the journey and the stories along the way!</em>
+    </p>
+    <div class="footer">
+      &copy; 2025 Gueswhoaimi &mdash; Thank you for visiting!
+    </div>
+    <script>
+      // Display today's date
+      const today = new Date();
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      document.getElementById('today').textContent = today.toLocaleDateString(undefined, options);
+    </script>
+  </body>
+</html>
