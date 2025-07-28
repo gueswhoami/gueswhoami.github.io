@@ -1,216 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Gueswhoaimi</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-      body {
-        text-align: center;
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
-        color: #22223b;
-        margin: 0;
-        padding: 0;
-      }
+<head>
+  <meta charset="UTF-8">
+  <title>Gueswhoaimi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+      color: #22223b;
+      text-align: center;
+    }
+
+    h1 {
+      color: #c1121f;
+      margin-top: 40px;
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 4px #fcd5ce;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: #495057;
+      margin: 0 16px 10px;
+    }
+
+    .date, .time {
+      font-size: 1.05rem;
+      font-weight: bold;
+      margin: 4px 0;
+    }
+
+    .date { color: #3a5a40; }
+    .time { color: #0077b6; }
+
+    .highlight {
+      color: #0077b6;
+      font-weight: bold;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #adb5bd;
+      margin: 32px auto;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    .footer {
+      margin: 40px 16px 20px;
+      font-size: 0.95rem;
+      color: #adb5bd;
+    }
+
+    .cyber-list-section, .table-section {
+      background: #f7f7fa;
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 12px;
+      width: 92%;
+      max-width: 900px;
+      box-shadow: 0 2px 8px #e9ecef;
+      text-align: left;
+    }
+
+    .cyber-list-section h2,
+    .table-section h2 {
+      text-align: center;
+      font-size: 1.3rem;
+      color: #495057;
+      margin-bottom: 14px;
+    }
+
+    .cyber-list {
+      list-style-position: inside;
+      padding-left: 0;
+      margin: 0;
+      font-size: 1.07rem;
+    }
+
+    .cyber-list li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .cyber-list strong {
+      color: #0077b6;
+    }
+
+    /* Responsive Table Wrapper */
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      min-width: 600px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #adb5bd;
+      text-align: center;
+    }
+
+    th {
+      background: #e0e7ff;
+      color: #495057;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    tr:hover {
+      background: #dde3ff;
+    }
+
+    /* Modal Styles */
+    #passwordModal {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      background: rgba(240, 243, 250, 0.95);
+    }
+
+    #passwordModalContent {
+      background: #fff;
+      padding: 32px 28px 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 18px #adb5bd4a;
+      text-align: center;
+      width: 90%;
+      max-width: 320px;
+    }
+
+    #passwordModalContent h2 {
+      margin-bottom: 18px;
+      font-size: 1.25rem;
+      color: #495057;
+    }
+
+    #passwordInput {
+      width: 90%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #adb5bd;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      outline: none;
+    }
+
+    #passwordBtn {
+      font-size: 1rem;
+      padding: 10px 24px;
+      color: white;
+      background-color: #0077b6;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #passwordBtn:hover {
+      background-color: #005f8e;
+    }
+
+    #passwordError {
+      margin-top: 8px;
+      min-height: 1.2em;
+      font-size: 0.95rem;
+      color: #c1121f;
+    }
+
+    @media (max-width: 600px) {
       h1 {
-        color: #c1121f;
-        margin-top: 40px;
-        letter-spacing: 3px;
-        font-size: 2.8em;
-        text-shadow: 1px 1px 5px #fcd5ce;
+        font-size: 2rem;
       }
+
       .subtitle {
-        font-size: 1.4em;
-        color: #495057;
-        margin-bottom: 10px;
+        font-size: 1.1rem;
       }
-      .date {
-        color: #3a5a40;
-        font-weight: bold;
-        margin: 8px 0 4px 0;
-        font-size: 1.1em;
+
+      .cyber-list-section, .table-section {
+        padding: 16px;
       }
-      .time {
-        color: #0077b6;
-        font-weight: bold;
-        font-size: 1.05em;
-        margin-bottom: 16px;
-      }
-      .highlight {
-        color: #0077b6;
-        font-weight: bold;
-      }
-      hr {
-        width: 60%;
-        margin: 32px auto;
-        border: 1px solid #adb5bd;
-      }
-      .footer {
-        margin-top: 40px;
-        color: #adb5bd;
-        font-size: 0.95em;
-      }
-      .cyber-list-section {
-        background: #f7f7fa;
-        margin: 30px auto 20px auto;
-        padding: 20px 8px;
-        border-radius: 12px;
-        width: 92%;
-        max-width: 600px;
-        box-shadow: 0 2px 8px #e9ecef;
-        text-align: left;
-        display: inline-block;
-      }
-      .cyber-list-section h2 {
-        color: #495057;
-        font-size: 1.3em;
-        margin-bottom: 12px;
-        text-align: center;
-      }
-      .cyber-list {
-        margin: 0 0 0 1.2em;
-        padding: 0;
-        font-size: 1.07em;
-        color: #22223b;
-      }
-      .cyber-list li {
-        margin-bottom: 9px;
-        line-height: 1.5;
-      }
-      .cyber-list strong {
-        color: #0077b6;
-      }
-      /* Table Section Styles */
-      .table-section {
-        background: #f7f7fa;
-        margin: 30px auto 20px auto;
-        padding: 20px 12px;
-        border-radius: 12px;
-        width: 92%;
-        max-width: 900px;
-        box-shadow: 0 2px 8px #e9ecef;
-        display: inline-block;
-      }
-      .table-section h2 {
-        color: #495057;
-        font-size: 1.3em;
-        margin-bottom: 14px;
-        text-align: center;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 0 auto 10px auto;
-        background: #fff;
-        box-shadow: 0 1px 4px #e0e7ff6a;
-      }
+
       th, td {
-        padding: 8px 10px;
-        border: 1px solid #adb5bd;
-        text-align: center;
-        font-size: 1em;
+        font-size: 0.9rem;
+        padding: 6px;
       }
-      th {
-        background: #e0e7ff;
-        color: #495057;
-        font-weight: 600;
-      }
-      tr:nth-child(even) {
-        background: #f8fafc;
-      }
-      tr:hover {
-        background: #dde3ff;
-      }
-      /* Password Modal Styles */
-      #passwordModal {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        z-index: 9999;
-        left: 0;
-        top: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(240,243,250,0.95);
-      }
-      #passwordModalContent {
-        background: #fff;
-        padding: 32px 28px 24px 28px;
-        border-radius: 12px;
-        box-shadow: 0 2px 18px #adb5bd4a;
-        text-align: center;
-        max-width: 320px;
-        width: 95%;
-      }
-      #passwordModalContent h2 {
-        color: #495057;
-        margin-bottom: 18px;
-        font-size: 1.34em;
-      }
-      #passwordInput {
-        font-size: 1.1em;
-        width: 90%;
-        padding: 9px 8px;
-        border: 1px solid #adb5bd;
-        border-radius: 6px;
-        margin-bottom: 16px;
-        outline: none;
-      }
-      #passwordBtn {
-        font-size: 1.1em;
-        color: #fff;
-        background: #0077b6;
-        border: none;
-        border-radius: 6px;
-        padding: 8px 24px;
-        cursor: pointer;
-        margin-bottom: 8px;
-      }
-      #passwordError {
-        color: #c1121f;
-        font-size: 1em;
-        margin-top: 8px;
-        min-height: 1.2em;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Password Modal -->
-    <div id="passwordModal">
-      <div id="passwordModalContent">
-        <h2>Enter Password to Access</h2>
-        <input id="passwordInput" type="password" placeholder="Password" autocomplete="off" />
-        <br>
-        <button id="passwordBtn">Enter</button>
-        <div id="passwordError"></div>
-      </div>
+    }
+  </style>
+</head>
+<body>
+  <!-- Password Modal -->
+  <div id="passwordModal">
+    <div id="passwordModalContent">
+      <h2>Enter Password to Access</h2>
+      <input id="passwordInput" type="password" placeholder="Password" />
+      <br>
+      <button id="passwordBtn">Enter</button>
+      <div id="passwordError"></div>
     </div>
+  </div>
 
-    <div id="mainContent" style="display:none;">
-      <h1>WELCOME TO MY SITE</h1>
-      <div class="subtitle">A place to share my journey and aspirations</div>
-      <div class="date">
-        Today is: <span id="today"></span>
-      </div>
-      <div class="time">
-        Current Time: <span id="currentTime"></span>
-      </div>
-      <p>
-        <span class="highlight">Today marks the beginning of a new chapter in my life.</span>
-        I'm excited to embrace new challenges, set fresh goals, and grow every day. 
-      </p>
-      <hr>
-      <p>
-        I believe every step I take from now on will truly matter. 
-        <br>
-        <em>It's not just about the destination, but the journey and the stories along the way!</em>
-      </p>
+  <div id="mainContent" style="display:none;">
+    <h1>WELCOME TO MY SITE</h1>
+    <div class="subtitle">A place to share my journey and aspirations</div>
+    <div class="date">Today is: <span id="today"></span></div>
+    <div class="time">Current Time: <span id="currentTime"></span></div>
 
-      <!-- Table Section -->
-      <div class="table-section">
-        <h2>Details Table</h2>
+    <p><span class="highlight">Today marks the beginning of a new chapter in my life.</span> I'm excited to embrace new challenges, set fresh goals, and grow every day.</p>
+    <hr>
+    <p>I believe every step I take from now on will truly matter.<br><em>It's not just about the destination, but the journey and the stories along the way!</em></p>
+
+    <div class="table-section">
+      <h2>Details Table</h2>
+      <div class="table-wrapper">
         <table>
           <thead>
             <tr>
@@ -224,157 +243,76 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>01</td>
-              <td>Alice Smith</td>
-              <td>Developer</td>
-              <td>Engineering</td>
-              <td>alice.smith@example.com</td>
-              <td>Active</td>
-              <td>2022-04-15</td>
-            </tr>
-            <tr>
-              <td>02</td>
-              <td>Bob Lee</td>
-              <td>Designer</td>
-              <td>UI/UX</td>
-              <td>bob.lee@example.com</td>
-              <td>Active</td>
-              <td>2023-01-10</td>
-            </tr>
-            <tr>
-              <td>03</td>
-              <td>Clara Zhou</td>
-              <td>Manager</td>
-              <td>Product</td>
-              <td>clara.zhou@example.com</td>
-              <td>Inactive</td>
-              <td>2021-09-21</td>
-            </tr>
-            <tr>
-              <td>04</td>
-              <td>David Kim</td>
-              <td>Analyst</td>
-              <td>Data</td>
-              <td>david.kim@example.com</td>
-              <td>Active</td>
-              <td>2024-02-01</td>
-            </tr>
-            <tr>
-              <td>05</td>
-              <td>Emma Lopez</td>
-              <td>Support</td>
-              <td>Customer</td>
-              <td>emma.lopez@example.com</td>
-              <td>Active</td>
-              <td>2023-07-23</td>
-            </tr>
+            <tr><td>01</td><td>Alice Smith</td><td>Developer</td><td>Engineering</td><td>alice.smith@example.com</td><td>Active</td><td>2022-04-15</td></tr>
+            <tr><td>02</td><td>Bob Lee</td><td>Designer</td><td>UI/UX</td><td>bob.lee@example.com</td><td>Active</td><td>2023-01-10</td></tr>
+            <tr><td>03</td><td>Clara Zhou</td><td>Manager</td><td>Product</td><td>clara.zhou@example.com</td><td>Inactive</td><td>2021-09-21</td></tr>
+            <tr><td>04</td><td>David Kim</td><td>Analyst</td><td>Data</td><td>david.kim@example.com</td><td>Active</td><td>2024-02-01</td></tr>
+            <tr><td>05</td><td>Emma Lopez</td><td>Support</td><td>Customer</td><td>emma.lopez@example.com</td><td>Active</td><td>2023-07-23</td></tr>
           </tbody>
         </table>
       </div>
-      
-      <!-- Cybersecurity ListView Section -->
-      <div class="cyber-list-section">
-        <h2>Cybersecurity Topics You Should Know</h2>
-        <ul class="cyber-list">
-          <li>
-            <strong>1. Password Security:</strong> 
-            Use strong, unique passwords and enable multi-factor authentication to protect your accounts.
-          </li>
-          <li>
-            <strong>2. Phishing Awareness:</strong>
-            Be cautious of suspicious emails or links; always verify the sender before providing personal information.
-          </li>
-          <li>
-            <strong>3. Malware Protection:</strong>
-            Install reputable antivirus software and keep it updated to guard against viruses and ransomware.
-          </li>
-          <li>
-            <strong>4. Secure Networks:</strong>
-            Use encrypted Wi-Fi connections and avoid public networks when handling sensitive activities.
-          </li>
-          <li>
-            <strong>5. Software Updates:</strong>
-            Regularly update your operating system and applications to patch security vulnerabilities.
-          </li>
-          <li>
-            <strong>6. Data Backup:</strong>
-            Keep regular backups of important files to recover from data loss or cyberattacks.
-          </li>
-          <li>
-            <strong>7. Social Engineering:</strong>
-            Be wary of manipulation tactics used by attackers to gain your trust and sensitive information.
-          </li>
-        </ul>
-      </div>
-
-      <div class="footer">
-        &copy; 2025 Gueswhoaimi &mdash; Thank you for visiting!
-      </div>
     </div>
-    <script>
-      // --- Password Modal Logic using Base64 ---
-      const PASSWORD_B64 = "cG9pc2stbHM=";
 
-      function encodeBase64(str) {
-        // btoa supports only ASCII; if Unicode is needed, use this workaround:
-        return btoa(unescape(encodeURIComponent(str)));
+    <div class="cyber-list-section">
+      <h2>Cybersecurity Topics You Should Know</h2>
+      <ul class="cyber-list">
+        <li><strong>1. Password Security:</strong> Use strong, unique passwords and enable multi-factor authentication.</li>
+        <li><strong>2. Phishing Awareness:</strong> Be cautious of suspicious emails or links; verify the sender.</li>
+        <li><strong>3. Malware Protection:</strong> Use reputable antivirus software and keep it updated.</li>
+        <li><strong>4. Secure Networks:</strong> Avoid public networks for sensitive tasks and use encrypted connections.</li>
+        <li><strong>5. Software Updates:</strong> Regularly update your OS and apps to patch vulnerabilities.</li>
+        <li><strong>6. Data Backup:</strong> Keep backups of critical data for disaster recovery.</li>
+        <li><strong>7. Social Engineering:</strong> Stay alert for manipulation tactics aimed at stealing data.</li>
+      </ul>
+    </div>
+
+    <div class="footer">&copy; 2025 Gueswhoaimi — Thank you for visiting!</div>
+  </div>
+
+  <script>
+    // Password Protection Logic
+    const PASSWORD_B64 = "cG9pc2stbHM=";
+    const modal = document.getElementById('passwordModal');
+    const main = document.getElementById('mainContent');
+    const input = document.getElementById('passwordInput');
+    const btn = document.getElementById('passwordBtn');
+    const error = document.getElementById('passwordError');
+
+    const unlock = () => {
+      const entered = btoa(unescape(encodeURIComponent(input.value)));
+      if (entered === PASSWORD_B64) {
+        modal.style.display = 'none';
+        main.style.display = '';
+        document.body.style.overflow = '';
+        input.value = '';
+        error.textContent = '';
+        showDateAndTime();
+      } else {
+        error.textContent = "Incorrect password. Try again.";
+        input.value = '';
+        input.focus();
       }
-      function decodeBase64(b64) {
-        return decodeURIComponent(escape(atob(b64)));
+    };
+
+    btn.onclick = unlock;
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') unlock(); });
+    input.focus();
+    document.body.style.overflow = "hidden";
+
+    // Show date and live time
+    function showDateAndTime() {
+      const today = new Date();
+      document.getElementById('today').textContent = today.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+
+      function updateTime() {
+        const now = new Date();
+        document.getElementById('currentTime').textContent =
+          now.toTimeString().slice(0, 8);
       }
 
-      const passwordModal = document.getElementById('passwordModal');
-      const mainContent = document.getElementById('mainContent');
-      const passwordInput = document.getElementById('passwordInput');
-      const passwordBtn = document.getElementById('passwordBtn');
-      const passwordError = document.getElementById('passwordError');
-
-      function unlockSite() {
-        if (encodeBase64(passwordInput.value) === PASSWORD_B64) {
-          passwordModal.style.display = 'none';
-          mainContent.style.display = '';
-          passwordInput.value = '';
-          passwordError.textContent = '';
-          showDateAndTime();
-        } else {
-          passwordError.textContent = "Incorrect password. Try again.";
-          passwordInput.value = '';
-          passwordInput.focus();
-        }
-      }
-
-      passwordBtn.onclick = unlockSite;
-      passwordInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') unlockSite();
-      });
-      passwordInput.focus();
-
-      // Optionally, you can block scrolling while locked
-      document.body.style.overflow = "hidden";
-      // Restore scrolling when unlocked
-      function showDateAndTime() {
-        document.body.style.overflow = "";
-        // Display today's date
-        const today = new Date();
-        const options = { year: "numeric", month: "long", day: "numeric" };
-        document.getElementById('today').textContent = today.toLocaleDateString(undefined, options);
-
-        // Real-time clock
-        function updateTime() {
-          const now = new Date();
-          let h = now.getHours();
-          let m = now.getMinutes();
-          let s = now.getSeconds();
-          // Add leading zeros
-          h = h < 10 ? "0" + h : h;
-          m = m < 10 ? "0" + m : m;
-          s = s < 10 ? "0" + s : s;
-          document.getElementById('currentTime').textContent = h + ":" + m + ":" + s;
-        }
-        updateTime();
-        setInterval(updateTime, 1000);
-      }
-    </script>
-  </body>
+      updateTime();
+      setInterval(updateTime, 1000);
+    }
+  </script>
+</body>
 </html>
